@@ -1,627 +1,119 @@
-<<<<<<< HEAD
-# SureGuard AI - Advanced Fraud Detection Platform
+# SureGuard AI
 
-<div align="center">
-  <img src="https://img.shields.io/badge/Version-1.0.0-blue.svg" alt="Version">
-  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
-  <img src="https://img.shields.io/badge/Node.js-20+-green.svg" alt="Node.js">
-  <img src="https://img.shields.io/badge/Python-3.11+-blue.svg" alt="Python">
-  <img src="https://img.shields.io/badge/Docker-Ready-blue.svg" alt="Docker">
-  <img src="https://img.shields.io/badge/Kubernetes-Ready-blue.svg" alt="Kubernetes">
-</div>
+**AI-assisted fraud detection and risk-scoring application exploring device, IP, and behaviour signals.**
 
-## 🛡️ Product Overview
+TypeScript-oriented project (with supporting services as present in the tree) for analyzing risk patterns and presenting results through a web application. Useful as engineering evidence for applied AI + backend systems work.
 
-SureGuard AI is a comprehensive, AI-powered fraud detection and prevention platform designed to protect businesses from sophisticated cyber threats in real-time. Built with modern microservices architecture, it provides enterprise-grade security with machine learning capabilities.
+> **Critical honesty note:** Earlier README content included unverified claims (e.g. specific accuracy percentages, sub-50ms latency, SOC2/HIPAA/PCI readiness, global threat intelligence at scale). Those claims are **not** repeated here. Only describe what the code and tests support.
 
-### 🎯 Key Features
+## Problem
 
-- **🤖 AI-Powered Detection**: Advanced machine learning algorithms with 99.7% accuracy
-- **⚡ Real-Time Processing**: Sub-50ms response time for threat detection
-- **🌐 Global Threat Intelligence**: Worldwide threat data aggregation and analysis
-- **👥 Team Collaboration**: Multi-user dashboard with role-based access control
-- **📊 Advanced Analytics**: Comprehensive reporting and visualization
-- **🔗 API-First Design**: RESTful APIs with comprehensive documentation
-- **🚀 Scalable Architecture**: Microservices-based for horizontal scaling
-- **🔒 Enterprise Security**: End-to-end encryption and compliance ready
+Fraud and abuse detection requires combining multiple weak signals (device, network, behaviour) into actionable risk scores without blocking legitimate users. Building that pipeline is an engineering and evaluation problem, not just a model demo.
 
-### 🏢 Use Cases
+## Solution
 
-- **E-commerce Platforms**: Transaction fraud prevention
-- **Financial Services**: Account takeover protection
-- **SaaS Applications**: User behavior analysis
-- **Gaming Platforms**: Bot detection and prevention
-- **Healthcare**: HIPAA-compliant fraud detection
-- **Government**: Critical infrastructure protection
+SureGuard AI explores an application stack for:
 
-## 🏗️ Architecture Overview
+- Ingesting and analyzing risk-related signals
+- Scoring and presenting results in a product UI
+- Structuring services/APIs around detection workflows
 
-SureGuard AI follows a modern microservices architecture with the following components:
+Treat microservices diagrams and third-party integrations as **design or partial implementation** until confirmed in the source tree.
 
-\`\`\`
-┌─────────────────────────────────────────────────────────────┐
-│                    Load Balancer (Kong)                     │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-┌─────────────────────┴───────────────────────────────────────┐
-│                  API Gateway                                │
-└─┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┘
-  │         │         │         │         │         │
-  ▼         ▼         ▼         ▼         ▼         ▼
-┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐
-│ Auth  │ │Threat │ │  ML   │ │ User  │ │Analytics│ │Notify │
-│Service│ │Detect │ │Service│ │Service│ │ Service │ │Service│
-└───┬───┘ └───┬───┘ └───┬───┘ └───┬───┘ └───┬───┘ └───┬───┘
-    │         │         │         │         │         │
-    └─────────┼─────────┼─────────┼─────────┼─────────┘
-              │         │         │         │
-┌─────────────┴─────────┴─────────┴─────────┴─────────────────┐
-│                    Data Layer                               │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐      │
-│  │PostgreSQL│ │  Redis   │ │ClickHouse│ │Elasticsearch│    │
-│  └──────────┘ └──────────┘ └──────────┘ └──────────┘      │
-└─────────────────────────────────────────────────────────────┘
-\`\`\`
+## Architecture
 
-### 🔧 Core Services
+High-level concept (verify against code):
 
-| Service | Purpose | Technology | Port |
-|---------|---------|------------|------|
-| **Main App** | Next.js Frontend & API | Node.js, React | 3000 |
-| **Auth Service** | Authentication & Authorization | Node.js, JWT | 3001 |
-| **ML Service** | Machine Learning Models | Python, TensorFlow | 8080 |
-| **Threat Detection** | Real-time Threat Analysis | Node.js, Redis | 3002 |
-| **Analytics Service** | Data Analytics & Reporting | Node.js, ClickHouse | 3003 |
-| **User Service** | User Management | Node.js, PostgreSQL | 3004 |
-| **Notification Service** | Alerts & Communications | Node.js, SendGrid | 3005 |
-| **Reporting Service** | Report Generation | Node.js, AWS S3 | 3006 |
-| **Integration Service** | Third-party Integrations | Node.js, Redis | 3007 |
-| **Data Pipeline** | Data Processing | Node.js, Kafka | 3008 |
+```
+Web app / API
+    │
+Risk analysis / scoring logic
+    │
+Data stores & external signals (as integrated)
+```
 
-### 🗄️ Data Storage
+If the repository contains multiple services, document each from the actual folders rather than from marketing diagrams.
 
-- **PostgreSQL**: Primary database for user data, configurations, and transactions
-- **Redis**: Caching layer and session storage
-- **ClickHouse**: Analytics and time-series data
-- **Elasticsearch**: Logging and search functionality
-- **AWS S3**: File storage and backups
+## Features
 
-## 🚀 Quick Start
+- Web application for fraud/risk workflows
+- AI-assisted risk scoring concepts
+- Device / IP / behaviour signal analysis (as implemented)
+- API-oriented design where present
 
-### Prerequisites
+Do not claim real-time global threat intel, certified compliance, or specific ML accuracy without evaluation artifacts in the repo.
 
-- **Node.js** 20+ and npm
-- **Python** 3.11+
-- **Docker** and Docker Compose
-- **Git**
+## Tech stack
 
-### 1. Clone the Repository
+| Area | Technology (as indicated by repo) |
+|------|-------------------------------------|
+| Primary | TypeScript / Node.js |
+| App framework | Inspect package manifests (e.g. Next.js if present) |
+| Data | Confirm from config (Postgres, Redis, etc. only if used) |
+| AI/ML | Confirm from code and model artifacts |
+| Containers | Docker if present |
 
-\`\`\`bash
-git clone https://github.com/your-org/sureguard-ai.git
-cd sureguard-ai
-\`\`\`
+## Repository structure
 
-### 2. Environment Setup
+See the repository root for `app/`, `services/`, `components/`, Docker, and docs folders. Prefer the live tree over any outdated structure list.
 
-\`\`\`bash
-# Copy environment template
+## Installation
+
+```bash
+git clone https://github.com/lukewealth/suregaurd.ai.git
+cd suregaurd.ai
+npm install   # or yarn / pnpm per lockfile
 cp .env.example .env
+```
 
-# Edit environment variables
-nano .env
-\`\`\`
+Follow Docker Compose only if `docker-compose` files exist and are maintained.
 
-### 3. Start with Docker Compose
+## Environment variables
 
-\`\`\`bash
-# Start all services
-docker-compose up -d
+Configure database, auth, and any third-party API keys via `.env` / secret manager. Never commit real secrets.
 
-# View logs
-docker-compose logs -f
+## Usage
 
-# Check service status
-docker-compose ps
-\`\`\`
+Use scripts defined in `package.json` for dev, build, and start. Exercise detection flows only with synthetic data in non-production environments.
 
-### 4. Access the Application
+## Testing
 
-- **Main Application**: http://localhost:3000
-- **API Documentation**: http://localhost:3000/api-docs
-- **Kong Admin**: http://localhost:8001
-- **Grafana Dashboard**: http://localhost:3010 (admin/admin)
-- **Prometheus**: http://localhost:9090
-- **Elasticsearch**: http://localhost:9200
+Run whatever test scripts exist. Fraud systems need evaluation sets and false-positive analysis before any accuracy claims.
 
-## 🛠️ Development Guide
+## Deployment
 
-### Development Environment Setup
+Container or platform deployment only as supported by Docker/K8s files present. No production SLA is claimed in this README.
 
-1. **Install Dependencies**
-\`\`\`bash
-# Root dependencies
-npm install
+## Security
 
-# Service dependencies
-cd services/auth-service && npm install
-cd ../ml-service && pip install -r requirements.txt
-cd ../threat-detection-service && npm install
-# ... repeat for other services
-\`\`\`
+- Secrets via environment only
+- Treat risk scores as advisory unless product policy says otherwise
+- Avoid logging sensitive PII
+- Compliance certifications require formal audits — not README badges
 
-2. **Database Setup**
-\`\`\`bash
-# Start PostgreSQL
-docker-compose up -d postgres
+## Limitations
 
-# Run migrations
-npm run db:migrate
+- Portfolio / product engineering scope unless production evidence exists
+- No verified accuracy, latency, or compliance claims in this document
+- Integration depth must be verified in code
+- Not a substitute for licensed financial crime tooling
 
-# Seed data
-npm run db:seed
-\`\`\`
+## Current status
 
-3. **Start Development Servers**
-\`\`\`bash
-# Start all services in development mode
-npm run dev:all
+**Active codebase with prior over-documentation cleaned for credibility.**  
+Use as evidence of applied AI + full-stack engineering interest in fraud/risk domains. Be ready in interviews to walk through actual modules, not the old marketing README.
 
-# Or start individual services
-npm run dev:main        # Main application
-npm run dev:auth        # Auth service
-npm run dev:ml          # ML service
-npm run dev:threats     # Threat detection
-\`\`\`
+## Roadmap
 
-### 📁 Project Structure
+- Evaluation harness and documented metrics (precision/recall on labeled sets)
+- Clear map of implemented services vs stubs
+- Hardened auth and audit logging
+- Remove any remaining conflict markers or dead docs
 
-\`\`\`
-sureguard-ai/
-├── app/                          # Next.js application
-│   ├── api/                      # API routes
-│   ├── dashboard/                # Dashboard pages
-│   ├── auth/                     # Authentication pages
-│   └── components/               # React components
-├── services/                     # Microservices
-│   ├── auth-service/             # Authentication service
-│   ├── ml-service/               # Machine learning service
-│   ├── threat-detection-service/ # Threat detection service
-│   ├── analytics-service/        # Analytics service
-│   ├── user-service/             # User management service
-│   ├── notification-service/     # Notification service
-│   ├── reporting-service/        # Reporting service
-│   ├── integration-service/      # Integration service
-│   └── data-pipeline-service/    # Data pipeline service
-├── components/                   # Shared React components
-│   ├── ui/                       # UI components
-│   ├── dashboard/                # Dashboard components
-│   ├── real-time/                # Real-time components
-│   └── micro/                    # Micro components
-├── lib/                          # Shared utilities
-├── scripts/                      # Database and setup scripts
-├── k8s/                          # Kubernetes manifests
-├── monitoring/                   # Monitoring configuration
-├── docs/                         # Documentation
-├── docker-compose.yml            # Docker Compose configuration
-├── Dockerfile                    # Main application Dockerfile
-└── README.md                     # This file
-\`\`\`
+## Keywords
 
-### 🧪 Testing
+`ai` `artificial-intelligence` `typescript` `backend` `api` `automation` `software-architecture` `fraud-detection` `risk-scoring` `nodejs`
 
-\`\`\`bash
-# Run all tests
-npm test
+## License
 
-# Run tests with coverage
-npm run test:coverage
-
-# Run specific service tests
-npm run test:auth
-npm run test:ml
-npm run test:threats
-
-# Run integration tests
-npm run test:integration
-
-# Run end-to-end tests
-npm run test:e2e
-\`\`\`
-
-### 🔍 Code Quality
-
-\`\`\`bash
-# Lint code
-npm run lint
-
-# Format code
-npm run format
-
-# Type checking
-npm run type-check
-
-# Security audit
-npm audit
-\`\`\`
-
-## 🚢 Deployment Guide
-
-### Docker Deployment
-
-#### Production Docker Compose
-
-\`\`\`bash
-# Use production configuration
-docker-compose -f docker-compose.prod.yml up -d
-
-# Scale services
-docker-compose -f docker-compose.prod.yml up -d --scale auth-service=3 --scale threat-detection-service=3
-\`\`\`
-
-#### Environment Variables
-
-Create a `.env.production` file:
-
-\`\`\`env
-# Application
-NODE_ENV=production
-PORT=3000
-CORS_ORIGIN=https://your-domain.com
-
-# Database
-DATABASE_URL=postgresql://username:password@postgres:5432/sureguard
-REDIS_URL=redis://redis:6379
-
-# Security
-JWT_SECRET=your-super-secret-jwt-key-here
-JWT_REFRESH_SECRET=your-super-secret-refresh-key-here
-ENCRYPTION_KEY=your-32-character-encryption-key
-
-# External APIs
-VIRUSTOTAL_API_KEY=your-virustotal-api-key
-SHODAN_API_KEY=your-shodan-api-key
-OPENAI_API_KEY=your-openai-api-key
-
-# Notifications
-SENDGRID_API_KEY=your-sendgrid-api-key
-SLACK_WEBHOOK_URL=your-slack-webhook-url
-
-# Cloud Storage
-AWS_ACCESS_KEY_ID=your-aws-access-key
-AWS_SECRET_ACCESS_KEY=your-aws-secret-key
-AWS_S3_BUCKET=your-s3-bucket-name
-\`\`\`
-
-### Kubernetes Deployment
-
-#### Prerequisites
-
-- Kubernetes cluster (1.25+)
-- kubectl configured
-- Helm 3.x
-
-#### Deploy to Kubernetes
-
-\`\`\`bash
-# Create namespace
-kubectl apply -f k8s/namespace.yaml
-
-# Apply configurations
-kubectl apply -f k8s/configmap.yaml
-kubectl apply -f k8s/secrets.yaml
-
-# Deploy databases
-kubectl apply -f k8s/postgres.yaml
-kubectl apply -f k8s/redis.yaml
-
-# Deploy services
-kubectl apply -f k8s/auth-service.yaml
-kubectl apply -f k8s/ml-service.yaml
-kubectl apply -f k8s/threat-detection-service.yaml
-kubectl apply -f k8s/analytics-service.yaml
-kubectl apply -f k8s/user-service.yaml
-kubectl apply -f k8s/notification-service.yaml
-
-# Deploy main application
-kubectl apply -f k8s/main-app.yaml
-
-# Deploy ingress
-kubectl apply -f k8s/ingress.yaml
-\`\`\`
-
-#### Monitoring Stack
-
-\`\`\`bash
-# Deploy Prometheus
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring --create-namespace
-
-# Deploy Grafana dashboards
-kubectl apply -f monitoring/grafana/dashboards/
-\`\`\`
-
-### Cloud Deployment
-
-#### AWS EKS
-
-\`\`\`bash
-# Create EKS cluster
-eksctl create cluster --name sureguard-cluster --region us-west-2 --nodes 3
-
-# Deploy application
-kubectl apply -f k8s/
-\`\`\`
-
-#### Google GKE
-
-\`\`\`bash
-# Create GKE cluster
-gcloud container clusters create sureguard-cluster --num-nodes=3 --zone=us-central1-a
-
-# Deploy application
-kubectl apply -f k8s/
-\`\`\`
-
-#### Azure AKS
-
-\`\`\`bash
-# Create AKS cluster
-az aks create --resource-group sureguard-rg --name sureguard-cluster --node-count 3
-
-# Deploy application
-kubectl apply -f k8s/
-\`\`\`
-
-## 📊 Monitoring & Observability
-
-### Metrics
-
-- **Application Metrics**: Response times, error rates, throughput
-- **Business Metrics**: Threats detected, false positives, user activity
-- **Infrastructure Metrics**: CPU, memory, disk usage, network
-
-### Logging
-
-- **Structured Logging**: JSON format with correlation IDs
-- **Log Aggregation**: Elasticsearch with Kibana dashboards
-- **Log Retention**: 30 days for debug, 90 days for audit
-
-### Tracing
-
-- **Distributed Tracing**: Jaeger for request tracing
-- **Performance Monitoring**: APM integration
-- **Error Tracking**: Sentry integration
-
-### Alerting
-
-- **Prometheus Alerts**: Infrastructure and application alerts
-- **PagerDuty Integration**: Critical incident management
-- **Slack Notifications**: Team notifications
-
-## 🔒 Security
-
-### Authentication & Authorization
-
-- **JWT Tokens**: Stateless authentication
-- **Role-Based Access Control**: Granular permissions
-- **Multi-Factor Authentication**: TOTP support
-- **OAuth Integration**: Google, Microsoft, GitHub
-
-### Data Protection
-
-- **Encryption at Rest**: AES-256 encryption
-- **Encryption in Transit**: TLS 1.3
-- **Data Anonymization**: PII protection
-- **Audit Logging**: Complete audit trail
-
-### Compliance
-
-- **SOC 2 Type II**: Security compliance
-- **GDPR**: Data privacy compliance
-- **HIPAA**: Healthcare compliance ready
-- **PCI DSS**: Payment card industry compliance
-
-## 🔧 Configuration
-
-### Environment Variables
-
-| Variable | Description | Default | Required |
-|----------|-------------|---------|----------|
-| `NODE_ENV` | Environment mode | `development` | Yes |
-| `PORT` | Application port | `3000` | No |
-| `DATABASE_URL` | PostgreSQL connection string | - | Yes |
-| `REDIS_URL` | Redis connection string | - | Yes |
-| `JWT_SECRET` | JWT signing secret | - | Yes |
-| `ML_MODEL_PATH` | ML model storage path | `/app/models` | No |
-| `RATE_LIMIT_MAX` | Rate limit per window | `1000` | No |
-| `LOG_LEVEL` | Logging level | `info` | No |
-
-### Feature Flags
-
-\`\`\`env
-# AI Features
-ENABLE_AI_RECOMMENDATIONS=true
-ENABLE_BEHAVIORAL_ANALYSIS=true
-ENABLE_ANOMALY_DETECTION=true
-
-# Real-time Features
-ENABLE_REAL_TIME_ALERTS=true
-ENABLE_WEBSOCKET_UPDATES=true
-
-# Integration Features
-ENABLE_THIRD_PARTY_APIS=true
-ENABLE_WEBHOOK_NOTIFICATIONS=true
-\`\`\`
-
-## 📚 API Documentation
-
-### Authentication
-
-\`\`\`bash
-# Login
-curl -X POST http://localhost:3000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email": "user@example.com", "password": "password"}'
-
-# Get user profile
-curl -X GET http://localhost:3000/api/auth/profile \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
-\`\`\`
-
-### Threat Detection
-
-\`\`\`bash
-# Analyze transaction
-curl -X POST http://localhost:3000/api/analyze \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-  -d '{
-    "transaction_id": "txn_123",
-    "amount": 1000,
-    "user_id": "user_456",
-    "ip_address": "192.168.1.1"
-  }'
-
-# Get threat feed
-curl -X GET http://localhost:3000/api/threats \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
-\`\`\`
-
-### Analytics
-
-\`\`\`bash
-# Get dashboard metrics
-curl -X GET http://localhost:3000/api/analytics/dashboard \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
-
-# Generate report
-curl -X POST http://localhost:3000/api/reports/generate \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-  -d '{
-    "type": "monthly",
-    "format": "pdf",
-    "date_range": {
-      "start": "2024-01-01",
-      "end": "2024-01-31"
-    }
-  }'
-\`\`\`
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### Development Workflow
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Add tests for your changes
-5. Ensure all tests pass (`npm test`)
-6. Commit your changes (`git commit -m 'Add amazing feature'`)
-7. Push to the branch (`git push origin feature/amazing-feature`)
-8. Open a Pull Request
-
-### Code Standards
-
-- **TypeScript**: Strict mode enabled
-- **ESLint**: Airbnb configuration
-- **Prettier**: Code formatting
-- **Husky**: Pre-commit hooks
-- **Conventional Commits**: Commit message format
-
-## 📈 Performance
-
-### Benchmarks
-
-- **Threat Detection**: < 50ms response time
-- **API Throughput**: 10,000+ requests/second
-- **ML Inference**: < 10ms per prediction
-- **Database Queries**: < 5ms average
-
-### Optimization
-
-- **Caching Strategy**: Multi-layer caching with Redis
-- **Database Optimization**: Query optimization and indexing
-- **CDN Integration**: Static asset delivery
-- **Load Balancing**: Horizontal scaling support
-
-## 🆘 Troubleshooting
-
-### Common Issues
-
-#### Service Won't Start
-
-\`\`\`bash
-# Check logs
-docker-compose logs service-name
-
-# Check port conflicts
-netstat -tulpn | grep :3000
-
-# Restart service
-docker-compose restart service-name
-\`\`\`
-
-#### Database Connection Issues
-
-\`\`\`bash
-# Check database status
-docker-compose exec postgres pg_isready
-
-# Reset database
-docker-compose down -v
-docker-compose up -d postgres
-npm run db:migrate
-\`\`\`
-
-#### High Memory Usage
-
-\`\`\`bash
-# Check memory usage
-docker stats
-
-# Restart services
-docker-compose restart
-
-# Scale down if needed
-docker-compose up -d --scale service-name=1
-\`\`\`
-
-### Support
-
-- **Documentation**: [docs.sureguard.ai](https://docs.sureguard.ai)
-- **Community Forum**: [community.sureguard.ai](https://community.sureguard.ai)
-- **Email Support**: support@sureguard.ai
-- **Enterprise Support**: enterprise@sureguard.ai
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **TensorFlow Team** for machine learning frameworks
-- **Next.js Team** for the amazing React framework
-- **PostgreSQL Community** for the robust database
-- **Redis Team** for high-performance caching
-- **Docker Team** for containerization technology
-
----
-
-<div align="center">
-  <p>Built with ❤️ by the SureGuard AI Team</p>
-  <p>
-    <a href="https://sureguard.ai">Website</a> •
-    <a href="https://docs.sureguard.ai">Documentation</a> •
-    <a href="https://github.com/sureguard-ai/sureguard">GitHub</a> •
-    <a href="https://twitter.com/sureguardai">Twitter</a>
-  </p>
-</div>
-
-=======
-# suregaurd.ai
-A.I  Fraud detection provides in-depth analysis of devices, IPs, and behavior patterns using real-time monitoring, AI-driven risk scoring, and third-party integrations with Apple, Samsung, The system is available via a one-page free trial and a full enterprise-grade multi-page app.
->>>>>>> 83e56351558ece65c95d9992bd186338cb745cfd
+See repository license if present; otherwise all rights reserved by the author.
